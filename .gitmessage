@@ -1,0 +1,15 @@
+# Title: Summary, imperative, start upper case, don't end with a period
+# No more than 50 chars. #### 50 chars is here: #
+
+# Remember blank line between title and body.
+
+# Body: Explain *what* and *why* (not *how*). Include task ID (Jira issue).
+# Wrap at 72 chars. ################################## which is here: #
+
+#   feat    : new feature, function
+#   fix     : fix bug
+#   refactor: refactoring
+#   style   : style (code format, add semicolon: no change in business logic)
+#   docs    : documents (add, edit, delete)
+#   test    : test (test code add, fix, delete: no chagne in business logic)
+#   chore   : additional change (ex. edit in building, etc...)
