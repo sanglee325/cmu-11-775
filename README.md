@@ -1,3 +1,6 @@
-# 11775-hws
+# CMU 11-775 Large Scale Multimedia Analysis
 
-For HW1 and dataset please follow the instructions in spring2021/hw1
+Spring 2022
+
+## HW1: Audio-based MED
+
