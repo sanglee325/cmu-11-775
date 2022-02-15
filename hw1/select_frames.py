@@ -30,6 +30,10 @@ if __name__ == "__main__":
   fread = open(args.input_path, "r")
   fwrite = open(args.output_path, "w")
 
+  for i in range(313):
+    fwrite.write(str(i))
+    if i == 312: fwrite.write("\n")
+    else: fwrite.write(";")
   # random selection is done by randomizing the rows of the whole matrix, and then selecting the first
   # num_of_frame * ratio rows
   numpy.random.seed(18877)

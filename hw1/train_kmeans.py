@@ -6,7 +6,7 @@ import sys
 import time
 
 import pandas as pd
-from sklearn.cluster.k_means_ import KMeans
+from sklearn.cluster import KMeans
 
 
 def parse_args():
@@ -27,10 +27,11 @@ if __name__ == '__main__':
     args = parse_args()
     
     # 1. load all mfcc features in one array
-    selection = pd.read_csv(args.input_path, sep=';', dtype='float')
+    selection = pd.read_csv(args.input_path, sep=';', error_bad_lines=False, dtype='float')
+    selection = selection.fillna(0)
     X = selection.values
     start = time.time()
-    kmeans = KMeans(n_clusters=args.k, random_state=0, n_jobs=10).fit(X)
+    kmeans = KMeans(n_clusters=args.k, random_state=0).fit(X)
     end = time.time()
 
     # 2. Save trained model
