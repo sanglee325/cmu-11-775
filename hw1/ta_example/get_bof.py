@@ -37,6 +37,8 @@ if __name__ == '__main__':
 
     # (num_frames, d)
     array = numpy.genfromtxt(mfcc_path, delimiter=";")
+    print(array.shape)
+    
     # (num_frames,), each row is an integer for the clostest cluster center
     kmeans_result = kmeans.predict(array)
 
