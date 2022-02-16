@@ -1,3 +1,4 @@
+# create bag of features
 python get_bof.py \
         models/kmeans.50.model \
         50 videos.name.lst \

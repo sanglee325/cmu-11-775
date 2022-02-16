@@ -3,7 +3,7 @@
 import argparse
 import numpy as np
 import os
-from sklearn.svm.classes import SVC
+from sklearn.svm import SVC
 import pickle
 import sys
 import numpy as np
