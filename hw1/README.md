@@ -73,7 +73,7 @@
             models/kmeans.50.model \
             50 \
             videos.name.lst \
-            --mfcc_path mfcc40/ \
+            --mfcc_path mfcc/ \
             --output_path bof/
     ```
 
