@@ -63,6 +63,5 @@ target/
 *.pt
 *.pdf
 *.png
-*.txt
 *.swp
 .vscode
