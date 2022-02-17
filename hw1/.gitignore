@@ -1,4 +1,6 @@
-ta_example/result
-ta_example/models
 *.lst
 *.csv
+
+mfcc_data/
+results/
+models/
