@@ -27,7 +27,12 @@ class LoadVideo(Stage):
         """
         # TODO: select a subset of frames, 
         # potentially according to current frame rate
-        raise NotImplementedError
+        #import pdb; pdb.set_trace()
+        T, H, W, C = frames.shape
+        selected_idx = np.arange(0,T,int(frame_rate/2)) 
+        selected_frames = frames[selected_idx]
+
+        return selected_frames
 
     def process(self, task):
         task.start(self)

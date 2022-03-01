@@ -29,7 +29,11 @@ class SIFTFeature(Stage):
         # Extract SIFT feature for the current frame
         # Use self.sift.detectAndCompute
         # Remember to handle when it returns None
-        raise NotImplementedError
+        self.reset()
+        keypoints, descriptor = self.sift.detectAndCompute(frame, None)
+        if descriptor is None:
+            descriptor = np.zeros((self.num_features, 128))
+        return descriptor
 
     def process(self, task):
         task.start(self)
