@@ -28,7 +28,7 @@ class FeatureDataset(Dataset):
         Return: [D]
         """
         # TODO: aggregate feature by max or average pooling
-        raise NotImplementedError
+        return frame_features.flatten()
 
     def __getitem__(self, idx):
         item = self.df.iloc[idx]
@@ -79,7 +79,7 @@ class FeatureDataModule(pl.LightningDataModule):
         parser = ArgumentParser(parents=[parent_parser], add_help=False)
         parser.add_argument(
             '--train_val_list_file', default=osp.abspath(osp.join(
-                osp.dirname(__file__), '../../data/labels/train_val.csv')))
+                osp.dirname(__file__), '../../data/labels/train.csv')))
         parser.add_argument(
             '--test_list_file', default=osp.abspath(osp.join(osp.dirname(
                 __file__), '../../data/labels/test_for_students.csv')))
