@@ -20,7 +20,10 @@ def select_features(features: List[np.ndarray]) -> np.ndarray:
     Return: selected features, [n x D]
     """
     # TODO: select subset of features for clustering
-    raise NotImplementedError
+    idx = int(len(features)/2)
+    selected_feature = features[idx]
+
+    return selected_feature
 
 
 def worker(video_id, *, args):
