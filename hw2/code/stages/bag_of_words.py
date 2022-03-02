@@ -2,7 +2,7 @@ import numpy as np
 import pickle
 from pyturbo import Stage
 
-
+import pdb
 class BagOfWords(Stage):
 
     """
@@ -24,7 +24,14 @@ class BagOfWords(Stage):
         # TODO: Generate bag of words
         # Calculate pairwise distance between each feature and each cluster,
         # assign each feature to the nearest cluster, and count
-        raise NotImplementedError
+        count = np.zeros(features.shape[1])
+        for feature in features:
+            temp = self.weight - feature
+            dist = np.sum(np.square(temp), axis=1)
+            min_idx = np.argmin(dist)
+            count[min_idx] += 1
+        
+        return count
 
     def get_video_feature(self, bags: np.ndarray) -> np.ndarray:
         """
@@ -33,7 +40,9 @@ class BagOfWords(Stage):
         Return: pooled vector, [W]
         """
         # TODO: Aggregate frame-level bags into a video-level feature.
-        raise NotImplementedError
+        result_W = bags.sum(axis=0)
+        
+        return result_W
 
     def process(self, task):
         features = task.content
