@@ -5,6 +5,7 @@ from torch.backends import cudnn
 from torchvision import models
 from torchvision.models.feature_extraction import create_feature_extractor
 
+import pdb
 
 class CNNFeature(Stage):
 
@@ -46,7 +47,15 @@ class CNNFeature(Stage):
         # TODO: extract CNN feature for the frame
         # Use self.model, whose input is [B x C x H x W] in float [0, 1]
         # Recommended to use with torch.no_grad()
-        raise NotImplementedError
+        self.reset()
+        frame = torch.from_numpy(frame)
+        frame_reshaped = frame.reshape(frame.shape[2], frame.shape[0], frame.shape[1])
+        frame_tensor = torch.unsqueeze(frame_reshaped, 0).type('torch.FloatTensor').to(self.device)
+        
+        with torch.no_grad():
+            result = self.model(frame_tensor)
+        
+        return result['feature'].cpu().numpy()
     
     def process(self, task):
         task.start(self)
