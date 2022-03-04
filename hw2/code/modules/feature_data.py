@@ -81,7 +81,7 @@ class FeatureDataModule(pl.LightningDataModule):
         parser = ArgumentParser(parents=[parent_parser], add_help=False)
         parser.add_argument(
             '--train_val_list_file', default=osp.abspath(osp.join(
-                osp.dirname(__file__), '../../data/labels/eval.csv')))
+                osp.dirname(__file__), '../../data/labels/train_val.csv')))
         parser.add_argument(
             '--test_list_file', default=osp.abspath(osp.join(osp.dirname(
                 __file__), '../../data/labels/test_for_students.csv')))
