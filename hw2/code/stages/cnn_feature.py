@@ -49,13 +49,13 @@ class CNNFeature(Stage):
         # Recommended to use with torch.no_grad()
         self.reset()
         frame = torch.from_numpy(frame)
-        frame_reshaped = frame.reshape(frame.shape[2], frame.shape[0], frame.shape[1])
+        frame_reshaped = frame.reshape(frame.shape[2], frame.shape[0], frame.shape[1]) / 255.0
         frame_tensor = torch.unsqueeze(frame_reshaped, 0).type('torch.FloatTensor').to(self.device)
         
         with torch.no_grad():
             result = self.model(frame_tensor)
-        
-        return result['feature'].cpu().numpy()
+            
+        return result['feature'].flatten().detach().cpu().numpy()
     
     def process(self, task):
         task.start(self)
