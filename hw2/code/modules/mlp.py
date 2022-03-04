@@ -13,10 +13,22 @@ class MlpClassifier(pl.LightningModule):
         super(MlpClassifier, self).__init__()
         self.save_hyperparameters(hparams)
         layers = [
-            nn.Linear(self.hparams.num_features,256),
-            nn.Linear(256,512),
-            nn.Linear(512,512),
-            nn.Linear(512,self.hparams.num_classes)
+            nn.Linear(self.hparams.num_features, 2048),
+            nn.BatchNorm1d(2048),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(2048, 4096),
+            nn.BatchNorm1d(4096),
+            nn.ReLU(),
+            nn.Linear(4096, 4096),
+            nn.BatchNorm1d(4096),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(4096, 2048),
+            nn.BatchNorm1d(2048),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(2048,self.hparams.num_classes)
             # TODO: define model layers here
             # Input self.hparams.num_features
             # Output self.hparams.num_classes
@@ -52,7 +64,8 @@ class MlpClassifier(pl.LightningModule):
         # TODO: define optimizer and optionally learning rate scheduler
         # The simplest form would be `return torch.optim.Adam(...)`
         # For more advanced usages, see https://pytorch-lightning.readthedocs.io/en/latest/common/lightning_module.html#configure-optimizers
-        return torch.optim.Adam(self.model.parameters(), lr=0.01)
+        lr = self.hparams.learning_rate
+        return torch.optim.Adam(self.model.parameters(), lr=lr)
 
     @classmethod
     def add_argparse_args(cls, parent_parser):
