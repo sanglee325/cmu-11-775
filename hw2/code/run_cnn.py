@@ -33,7 +33,7 @@ def parse_args(argv=None):
         '--video_dir', default=osp.join(
             osp.dirname(__file__), '../data/videos'))
     parser.add_argument(
-        '--cnn_dir', default=osp.join(osp.dirname(__file__), '../data/cnn-val'))
+        '--cnn_dir', default=osp.join(osp.dirname(__file__), '../data/cnn'))
     parser.add_argument('--debug', action='store_true')
     args = parser.parse_args(argv)
     return args
