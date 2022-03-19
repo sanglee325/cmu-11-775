@@ -4,7 +4,9 @@ from pyturbo import Stage
 from torch.backends import cudnn
 from torchvision import models
 from torchvision.models.feature_extraction import create_feature_extractor
+from torchvision import transforms
 
+from PIL import Image
 import pdb
 
 class CNNFeature(Stage):
@@ -48,9 +50,15 @@ class CNNFeature(Stage):
         # Use self.model, whose input is [B x C x H x W] in float [0, 1]
         # Recommended to use with torch.no_grad()
         self.reset()
-        frame = torch.from_numpy(frame)
-        frame_reshaped = frame.reshape(frame.shape[2], frame.shape[0], frame.shape[1]) / 255.0
-        frame_tensor = torch.unsqueeze(frame_reshaped, 0).type('torch.FloatTensor').to(self.device)
+        preprocess = transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ])
+        frame = Image.fromarray(np.array(frame))    
+        frame = preprocess(frame)
+        frame_tensor = torch.unsqueeze(frame, 0).type('torch.FloatTensor').to(self.device)
         
         with torch.no_grad():
             result = self.model(frame_tensor)
