@@ -14,7 +14,7 @@ from tqdm import tqdm
 import numpy as np
 
 from data_loader import load_dataset, load_dataloader
-from models.resnet1d import resnet34, resnet50
+from models.resnet1d import resnet18, resnet34, resnet50
 from config import *
 
 
@@ -115,6 +115,8 @@ if __name__ == '__main__':
         model = resnet34(num_classes=num_classes)
     elif ARCH == 'resnet50':
         model = resnet50(num_classes=num_classes)
+    elif ARCH == 'resnet18':
+        model = resnet18(num_classes=num_classes)
     
     model.to(device)
 
