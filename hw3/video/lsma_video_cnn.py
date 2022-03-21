@@ -33,7 +33,7 @@ class LSMAVideoCNN(torch.utils.data.Dataset):
             feat_path = self.X_dir + video_id + ".pkl"
             with open(feat_path, 'rb') as f:
                 _, frame_feature = pickle.load(f)
-            self.id_video[video_id] = torch.from_numpy(frame_feature).unsqueeze(0)
+            self.id_video[video_id] = torch.from_numpy(frame_feature)
 
         self.length = len(self.id_list)
 
@@ -81,11 +81,11 @@ class LSMATestVideoCNN(torch.utils.data.Dataset):
             feat_path = self.X_dir + video_id + ".pkl"
             with open(feat_path, 'rb') as f:
                 _, frame_feature = pickle.load(f)
-            self.id_video[video_id] = torch.from_numpy(frame_feature).unsqueeze(0)
+            self.id_video[video_id] = torch.from_numpy(frame_feature)
 
         self.length = len(self.id_list)
 
-    @staticmethod
+    @staticmethod   
     def parse_csv(filepath):
         id_list = []
         for line in open(filepath).readlines()[1:]:

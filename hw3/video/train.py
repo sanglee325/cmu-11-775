@@ -14,7 +14,7 @@ from tqdm import tqdm
 import numpy as np
 
 from data_loader import load_dataset, load_dataloader
-from models.resnet1d import resnet18, resnet34, resnet50
+from models.mlp import MLPNetwork
 from config import *
 
 
@@ -110,14 +110,10 @@ if __name__ == '__main__':
     print('save path: ', logdir)
 
     num_classes = 15
+    input_size = 512
     
-    if ARCH == 'resnet34':
-        model = resnet34(num_classes=num_classes)
-    elif ARCH == 'resnet50':
-        model = resnet50(num_classes=num_classes)
-    elif ARCH == 'resnet18':
-        model = resnet18(num_classes=num_classes)
-    
+    model = MLPNetwork(input_size=input_size, num_classes=num_classes)
+
     model.to(device)
 
     num_trainable_parameters = 0
