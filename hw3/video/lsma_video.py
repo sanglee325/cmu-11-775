@@ -10,64 +10,10 @@ from torchvision import transforms
 import numpy as np
 from PIL import Image
 
-class LSMAAudio(torch.utils.data.Dataset):
-
-    def __init__(self, data_path="./data", data_type="train", shuffle=True, transforms=None):
-        # sample represent how many npy files will be preloaded for one __getitem__ call
-        
-        self.X_dir = data_path + "/mfcc/"
-        self.Y_dir = data_path + "/labels/"
-        self.transforms = transforms
-
-        # load label file
-        if data_type == "train":
-            csvpath = self.Y_dir + "train.csv"
-        elif data_type == "val":
-            csvpath = self.Y_dir + "val.csv"
-        elif data_type == "test":
-            csvpath = self.Y_dir + "test_for_students.csv"
-
-        # using a small part of the dataset to debug
-        self.id_list, self.id_categories = self.parse_csv(csvpath)
-        
-        # load mfcc data
-        self.id_mfcc = {}
-        for mfcc_id in self.id_categories.keys():
-            mfcc_path = self.X_dir + mfcc_id + ".mfcc.csv"
-            try:
-                feat = np.genfromtxt(mfcc_path, delimiter=";", dtype="float")
-            except:
-                feat = np.zeros((40,313))
-            feat_tensor = torch.from_numpy(feat).unsqueeze(0)
-            self.id_mfcc[mfcc_id] = self.transforms(feat_tensor)
-
-        assert(len(self.id_categories) == len(self.id_mfcc))
-        self.length = len(self.id_mfcc)
-      
-    @staticmethod
-    def parse_csv(filepath):
-        id_categories = {}
-        id_list = []
-        for line in open(filepath).readlines()[1:]:
-            mfcc_id, category = line.strip().split(",")
-            id_categories[mfcc_id] = category
-            id_list.append(mfcc_id)
-        return id_list, id_categories
-        
-    def __len__(self):
-        return self.length
-        
-    def __getitem__(self, idx):
-        mfcc_key = self.id_list[idx]
-
-        X = self.id_mfcc[mfcc_key]
-        Y = self.id_categories[mfcc_key]
-        return X, Y
-
 
 class LSMAVideo(torch.utils.data.Dataset):
 
-    def __init__(self, data_path="./data", data_type="train", shuffle=True, transforms=None):
+    def __init__(self, data_path="./data", data_type="train", transforms=None):
         # sample represent how many npy files will be preloaded for one __getitem__ call
         
         self.X_dir = data_path + "/videos/"
@@ -144,13 +90,6 @@ class LSMAVideo(torch.utils.data.Dataset):
 
 
 if __name__ == '__main__':
-    '''
-    audio_preprocess = transforms.Compose([
-                        transforms.Normalize(mean=[0.485], 
-                                             std=[0.229]),
-                        ])
-    audio = LSMAAudio(transforms=audio_preprocess)
-    '''
     
     video_preprocess = transforms.Compose([
                         transforms.Normalize(mean=[0.485, 0.456, 0.406], 
