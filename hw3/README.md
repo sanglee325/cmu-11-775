@@ -1,4 +1,4 @@
-# HW3: Multimodel Fusion for MED
+# HW3: Multimodal Fusion for MED
 
 ## Install Dependencies
 
