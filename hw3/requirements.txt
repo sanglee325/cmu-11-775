@@ -9,3 +9,6 @@ tqdm
 av
 
 librosa
+
+seaborn
+matplotlib
